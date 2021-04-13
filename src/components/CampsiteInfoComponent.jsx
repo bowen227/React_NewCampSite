@@ -8,7 +8,7 @@ class CampsiteInfo extends Component {
     }
 
     renderCampsite(campsite) {
-        return(
+        return (
             <div className="col-md-5 m-1">
                 <Card>
                     <CardImg top src={campsite.image} alt={campsite.name} />
@@ -24,31 +24,31 @@ class CampsiteInfo extends Component {
             return (
                 <div className="col-md-5 m-1">
                     <h4>Comments</h4>
-                    {comments.map(comment => 
-                    <div key={comment.id} className="m-3">
-                        <span>{comment.text}</span>
-                        <br />
-                        <span>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</span>
-                    </div>)}
+                    {comments.map(comment =>
+                        <div key={comment.id} className="m-3">
+                            <span>{comment.text}</span>
+                            <br />
+                            <span>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</span>
+                        </div>
+                    )}
                 </div>
             );
         }
-        return <div></div>
+        return <div />;
     }
 
     render() {
         if (this.props.campsite) {
             return (
-                <div className="row">
-                    {this.renderCampsite(this.props.campsite)}
-                    {this.renderComments(this.props.campsite.comments)}
+                <div className="container">
+                    <div className="row">
+                        {this.renderCampsite(this.props.campsite)}
+                        {this.renderComments(this.props.campsite.comments)}
+                    </div>
                 </div>
             );
-        } else {
-            return (
-                <div></div>
-            );
         }
+        return <div />;
     }
 }
 
