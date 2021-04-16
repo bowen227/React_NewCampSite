@@ -1,11 +1,11 @@
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem  } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 function RenderCampsite({ campsite }) {
     return (
         <div className="col-md-5 m-1">
             <Card>
                 <CardImg top src={campsite.image} alt={campsite.name} />
-                <CardTitle>{campsite.name}</CardTitle>
                 <CardText>{campsite.description}</CardText>
             </Card>
         </div>
@@ -35,8 +35,22 @@ function CampsiteInfo(props) {
         return (
             <div className="container">
                 <div className="row">
+                    <div className="col">
+                        <Breadcrumb>
+                            <BreadcrumbItem>
+                                <Link to="/directory">Directory</Link>
+                            </BreadcrumbItem>
+                            <BreadcrumbItem>
+                                <Link to="/home">{props.campsite.name}</Link>
+                            </BreadcrumbItem>
+                        </Breadcrumb>
+                        <h2>{props.campsite.name}</h2>
+                        <hr />
+                    </div>
+                </div>
+                <div className="row">
                     <RenderCampsite campsite={props.campsite} />
-                    <RenderComments comments={props.campsite.comments} />
+                    <RenderComments comments={props.comments} />
                 </div>
             </div>
         );
