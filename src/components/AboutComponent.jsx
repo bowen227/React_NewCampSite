@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 function RenderPartner({partner}) {
     return partner ? 
     <>
-        <Media boolean={partner} src={partner.image} alt={partner.name} width="150" />
-        <Media boolean={partner.body} className="ml-5 mb-4">
-            <Media bloolean={partner.header}>
+        <Media object src={partner.image} alt={partner.name} width="150" />
+        <Media body className="ml-5 mb-4">
+            <Media heading>
                 {partner.name}
             </Media>
             {partner.description}
