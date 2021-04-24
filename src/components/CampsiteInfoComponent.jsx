@@ -1,4 +1,17 @@
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem  } from 'reactstrap';
+import { Component } from 'react';
+import { 
+    Card,
+    CardImg,
+    CardText,
+    Breadcrumb, 
+    BreadcrumbItem, 
+    Button,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    Label
+} from 'reactstrap';
+import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 
 function RenderCampsite({ campsite }) {
@@ -10,6 +23,133 @@ function RenderCampsite({ campsite }) {
             </Card>
         </div>
     );
+}
+
+const required = val => val && val.length;
+const maxLength = len => val => !val || (val.length <= len);
+const minLength = len => val => val && (val.length >= len);
+const isNumber = val => !isNaN(+val);
+
+class CommentForm extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            modal: false,
+            rating: '1',
+            author: '',
+            text: ''
+        }
+        
+        this.toggle = this.toggle.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleInputChange = this.handleInputChange.bind(this)
+    }
+
+    toggle() {
+        this.setState({modal: !this.state.modal})
+    }
+
+    handleInputChange(event) {
+        const target = event.target
+        const name = target.name
+        const value = target.value
+
+        this.setState({
+            [name]: value
+        })
+    }
+
+    handleSubmit(e) {
+        e.preventDefault()
+        alert(`Current state is: Rating: {"${this.state.rating}", Author: "${this.state.author}", Comment: "${this.state.text}}"`);
+    }
+
+    render() {
+        return (
+            <>
+                <Button outline onClick={this.toggle}><i className="fa fa-pencil fa-lg mr-2"></i>Submit Comment</Button>
+                <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                    <ModalHeader toggle={this.toggle}>Submit Comment</ModalHeader>
+                    <ModalBody>
+                        <LocalForm onSubmit={values => this.handleSubmit(values)}>
+                            <div className="form-group">
+                                <Label htmlFor="rating">Rating</Label>
+                                <Control.select 
+                                    model=".rating" 
+                                    id="rating" 
+                                    name="rating"
+                                    placeholder="Rating"
+                                    className="form-control"
+                                    onChange={this.handleInputChange}
+                                    validators={{
+                                        required,
+                                        minLength: minLength(2),
+                                        maxLength: maxLength(15)
+                                    }}
+                                >
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </Control.select>
+                            </div>
+                            <div className="form-group">
+                                <Label htmlFor="author">Your Name</Label>
+                                <Control.text 
+                                    model=".author" 
+                                    id="author" 
+                                    name="author"
+                                    placeholder="Your Name"
+                                    className="form-control"
+                                    onChange={this.handleInputChange}
+                                    validators={{
+                                        required,
+                                        minLength: minLength(2),
+                                        maxLength: maxLength(15)
+                                    }}
+                                />
+                                <Errors
+                                    className="text-danger"
+                                    model=".author"
+                                    show="touched"
+                                    component="div"
+                                    messages={{
+                                        required: "Required",
+                                        minLength: "Must be at least 2 characters",
+                                        maxLength: "Must be 15 characters or less"
+                                    }}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <Label htmlFor="text">Comment</Label>
+                                <Control.textarea 
+                                    model=".text" 
+                                    id="text" 
+                                    name="text"
+                                    rows="6"
+                                    className="form-control"
+                                    onChange={this.handleInputChange}
+                                    validators={{
+                                        required,
+                                        minLength: minLength(10),
+                                        maxLength: maxLength(15),
+                                        isNumber
+                                    }}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <Button type="submit" color="primary" onClick={this.handleSubmit}>
+                                    Submit
+                                </Button>
+                            </div>
+                        </LocalForm>
+                    </ModalBody>
+                </Modal>
+            </>
+        )
+    }
 }
 
 function RenderComments({ comments }) {
@@ -24,6 +164,7 @@ function RenderComments({ comments }) {
                         <span>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</span>
                     </div>
                 )}
+                <CommentForm />
             </div>
         );
     }
