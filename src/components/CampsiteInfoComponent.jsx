@@ -82,11 +82,6 @@ class CommentForm extends Component {
                                     placeholder="Rating"
                                     className="form-control"
                                     onChange={this.handleInputChange}
-                                    validators={{
-                                        required,
-                                        minLength: minLength(2),
-                                        maxLength: maxLength(15)
-                                    }}
                                 >
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -131,12 +126,6 @@ class CommentForm extends Component {
                                     rows="6"
                                     className="form-control"
                                     onChange={this.handleInputChange}
-                                    validators={{
-                                        required,
-                                        minLength: minLength(10),
-                                        maxLength: maxLength(15),
-                                        isNumber
-                                    }}
                                 />
                             </div>
                             <div className="form-group">
