@@ -9,6 +9,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, Form, Errors, actions } from 'react-redux-form';
+import { Fade, Stagger } from 'react-animation-components';
 
 const required = val => val && val.length;
 const maxLength = len => val => !val || (val.length <= len);
@@ -76,16 +77,28 @@ class Contact extends Component {
 
                 <div className="row row-content align-items-center">
                     <div className="col-sm-4">
-                        <h5>Our Address</h5>
-                        <address>
-                            1 Nucamp Way<br />
-                            Seattle, WA 98001<br />
-                            U.S.A.
-                        </address>
+                        <Stagger in>
+                            <Fade>
+                                <h5>Our Address</h5>
+                            </Fade>
+                            <Fade>
+                                <address>
+                                    1 Nucamp Way<br />
+                                    Seattle, WA 98001<br />
+                                    U.S.A.
+                                </address>
+                            </Fade>
+                        </Stagger>
                     </div>
                     <div className="col">
-                        <a role="button" className="btn btn-link" href="tel:+12065551234"><i className="fa fa-phone" /> 1-206-555-1234</a><br />
-                        <a role="button" className="btn btn-link" href="mailto:fakeemail@fakeemail.co"><i className="fa fa-envelope-o" /> campsites@nucamp.co</a>
+                        <Stagger in>
+                            <Fade>
+                                <a role="button" className="btn btn-link" href="tel:+12065551234"><i className="fa fa-phone" /> 1-206-555-1234</a><br />
+                            </Fade>
+                            <Fade>
+                                <a role="button" className="btn btn-link" href="mailto:fakeemail@fakeemail.co"><i className="fa fa-envelope-o" /> campsites@nucamp.co</a>
+                            </Fade>
+                        </Stagger>
                     </div>
                 </div>
                 <div className="row row-content">
