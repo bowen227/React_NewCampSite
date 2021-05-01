@@ -1,12 +1,14 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
+import { Loading } from './LoadingComponent';
 
 
 function RenderPartner({partner}) {
     return partner ? 
     <>
-        <Media object src={partner.image} alt={partner.name} width="150" />
+        <Media object src={baseUrl + partner.image} alt={partner.name} width="150" />
         <Media body className="ml-5 mb-4">
             <Media heading>
                 {partner.name}
@@ -17,8 +19,7 @@ function RenderPartner({partner}) {
     : <div></div>
 }
 
-function About(props) {
-
+function PartnerList(props) {
     const partners = props.partners.map(partner => {
         return (
             <Media tag="li" key={partner.id}>
@@ -27,6 +28,12 @@ function About(props) {
         );
     });
 
+    if (partners.length < 1) {
+        return <Loading />
+    }
+}
+
+function About(props) {
     return (
         <div className="container">
             <div className="row">
