@@ -28,8 +28,16 @@ function PartnerList(props) {
         );
     });
 
-    if (partners.length < 1) {
+    if (props.loading) {
         return <Loading />
+    }
+
+    if (props.errMess) {
+        return (
+            <div className="col">
+                <h4>{props.errMess}</h4>
+            </div>
+        )
     }
 
     return (
