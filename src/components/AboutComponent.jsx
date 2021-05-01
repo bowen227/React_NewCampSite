@@ -31,6 +31,14 @@ function PartnerList(props) {
     if (partners.length < 1) {
         return <Loading />
     }
+
+    return (
+        <div className="col mt-4">
+            <Media list>
+                {partners}
+            </Media>
+        </div>
+    )
 }
 
 function About(props) {
@@ -87,9 +95,7 @@ function About(props) {
                     <h3>Community Partners</h3>
                 </div>
                 <div className="col mt-4">
-                    <Media list>
-                        {partners}
-                    </Media>
+                    <PartnerList partners={props.partners} />
                 </div>
             </div>
         </div>
