@@ -46,7 +46,7 @@ function Home(props) {
                     />
                 </div>
                 <div className="col-md m-1">
-                    <RenderCard 
+                    <RenderCard
                         item={props.partner}
                         isLoading={props.partnersLoading}
                         errMess={props.partnersErrMess}
