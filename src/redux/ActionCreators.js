@@ -175,3 +175,30 @@ export const addPromotions = promotions => ({
     type: ActionTypes.ADD_PROMOTIONS,
     payload: promotions
 });
+
+export const postFeedback = (feedBack) => dispatch => {
+
+    return fetch(baseUrl + 'feedback', {
+        method: "POST",
+        body: JSON.stringify(feedBack),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (response.ok) {
+                return response
+            } else {
+                const error = new Error(`Error ${response.status}: ${response.statusText}`)
+                error.response = response
+                throw error;
+            }
+        },
+            error => { throw error })
+        .then(response => response.json())
+        .then(response => alert(JSON.stringify(response)))
+        .catch(error => {
+            console.log('post comment', error.message)
+            alert('Yoru comment could not be posted/nError: ' + error.message)
+        })
+};
