@@ -69,7 +69,7 @@ export const fetchPartners = () => dispatch => {
         .then(response => response.json())
         .then(partners => dispatch(addPartners(partners)))
         .catch(error => dispatch(partnersFailed(error.message)))
-}
+};
 
 export const fetchComments = () => dispatch => {
     return fetch(baseUrl + 'comments')

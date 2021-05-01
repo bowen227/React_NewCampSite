@@ -7,7 +7,7 @@ export const Partners = (state = {
 }, action) => {
     switch (action.type) {
         case ActionTypes.ADD_PARTNERS:
-            return { ...state, isLoading: false, errMess: null, promotions: action.payload }
+            return { ...state, isLoading: false, errMess: null, partners: action.payload }
         case ActionTypes.PARTNERS_LOADING:
             return { ...state, isLoading: true, errMess: null, partners: []}
         case ActionTypes.PARTNERS_FAILED:
